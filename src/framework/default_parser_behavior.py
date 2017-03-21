@@ -26,11 +26,11 @@ class DefaultParseBehavior:
     def is_empty(self, char_content):
         return char_content == ' ' or char_content == '\n' or char_content == '\t'
 
-    def is_opening_element(self, char_content, semantic_content):
+    def is_opening_element(self, char_content, token_category):
         if char_content == '\"' or \
             char_content == '\'':
             return True
-        return not isinstance(semantic_content, CSharpInstance) and \
+        return token_category == TokenCategory.Code and \
             (char_content == '{' or \
             char_content == '(' or \
             char_content == '[' )

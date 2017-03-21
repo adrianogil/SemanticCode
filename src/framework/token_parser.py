@@ -1,12 +1,7 @@
 import sys, os
-import fnmatch
-from os.path import join
-
 import codecs
 
-import parse_utils
-
-from default_parse_behavior import DefaultParseBehavior
+from default_parser_behavior import DefaultParseBehavior
 
 class TokenCategory:
     '''
@@ -26,7 +21,6 @@ class TokenParser:
             self.parse_behavior = DefaultParseBehavior()
         else:
             self.parse_behavior = parse_behavior
-        self.categories = self.parse_behavior.get_category_parsers()
         self.reset_token_data()
 
     def parse_file(self, csharp_file):
@@ -50,12 +44,12 @@ class TokenParser:
         token_data = { "tokens" : self.tokens, \
                       'tokens_category' : self.tokens_category, \
                       'enclosure_tokens' : self.enclosure_tokens, \
-                      'tokens_position': self.tokens_position}
+                      'tokens_position': self.tokens_location}
 
         return token_data
 
 
-    def parse_tokens(self, content)
+    def parse_tokens(self, content):
         p = self.parse_behavior
 
         total_lines = len(content)
@@ -90,7 +84,7 @@ class TokenParser:
 
                     end_stream_comments = (i,j)
                     token_location = (start_stream_comments, end_stream_comments)
-                    add_token_data(stream_comment, token_location, TokenCategory.Comment)
+                    self.add_token_data(stream_comment, token_location, TokenCategory.Comment)
 
                     stream_comment = ''
 
@@ -132,8 +126,6 @@ class TokenParser:
                     if token_start[0] == 1 or token_start[1] == -1:
                         token_start = (i,j)
                     current_token = current_token + content[i][j]
-
-        total_tokens = len(tokens)
 
     def reset_token_data(self):
         self.tokens = []
