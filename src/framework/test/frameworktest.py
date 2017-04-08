@@ -13,6 +13,10 @@ class FrameworkTest:
         self.TestTokenParse()
 
     def TestTokenParse(self):
+        print('--- Start Testing - Token Parse ---')
+
         tokenized_data = self.parser.parse_file(self.test_file)
+
+        print('--- Start End ----- Token Parse ---')
 
         return tokenized_data
