@@ -3,5 +3,8 @@ import sys
 sys.path.append('csharp')
 import csharp_parser
 
-def test(token_parser, symbolic_data):
+def test():
+    testCSharpParser(csharp_parser.BasicCSharpParser())
+
+def testCSharpParser(token_parser):
     print('Testing CSharp module')
