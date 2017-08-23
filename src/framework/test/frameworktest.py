@@ -1,10 +1,10 @@
 import os
 
 class FrameworkTest:
-    test_file = 'testparse.cs'
 
-    def __init__(self, parser):
+    def __init__(self, parser, file_name = 'testparse.cs'):
         self.parser = parser
+        self.test_file = file_name
 
         dir_path = os.path.dirname(os.path.realpath(__file__))
         self.test_file = os.path.join(dir_path, self.test_file)

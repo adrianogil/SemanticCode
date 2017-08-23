@@ -14,7 +14,7 @@ class TokenCategory:
     String = 1
     Comment = 2
 
-class TokenParser:
+class TokenParser(object):
 
     def __init__(self, parse_behavior = None):
         if parse_behavior == None:

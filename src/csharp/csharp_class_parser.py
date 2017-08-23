@@ -1,8 +1,13 @@
 
 def  parse_tokens(tokens_data):
     tokens = tokens_data['tokens']
+    print('charp_class_parser - ' + str(len(tokens)) + " tokens")
+
+def wip_method():
     semantic_tokens = tokens_data['semantic_tokens']
     positions = tokens_data['token_position']
+
+    print('charp_class_parser - ' + str(len(tokens)) + " tokens")
 
     total_tokens = len(tokens)
 
