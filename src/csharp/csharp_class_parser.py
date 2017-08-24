@@ -1,7 +1,10 @@
 
 def  parse_tokens(tokens_data):
     tokens = tokens_data['tokens']
+    tokens_category = tokens_data['tokens_category']
     print('charp_class_parser - ' + str(len(tokens)) + " tokens")
+    print(str(tokens))
+
 
 def wip_method():
     semantic_tokens = tokens_data['semantic_tokens']
