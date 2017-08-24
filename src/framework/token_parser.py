@@ -120,6 +120,8 @@ class TokenParser(object):
                         current_token = ''
                 elif not inside_string and p.is_special_token(content[i][j]):
                     if current_token != '':
+                        self.add_token_data(current_token, (token_start,(i,j-1)), TokenCategory.Code)
+                        token_start = (i,j)
                         current_token = ''
                     self.add_token_data("" + content[i][j], ((i,j),(i,j)), TokenCategory.Code)
                 else:
@@ -134,7 +136,7 @@ class TokenParser(object):
         self.enclosure_tokens = []
 
     def add_token_data(self, token, token_location, token_category):
-        print('add_token_data ' + token)
+        # print('add_token_data ' + token)
 
         self.tokens.append(token)
         self.tokens_category.append(token_category)
