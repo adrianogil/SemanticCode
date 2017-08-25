@@ -8,11 +8,15 @@ namespace Examples.Testbed {
     public class TestBehaviour : MonoBehaviour  {
         public void Start() {
             /* Testing */
-            Debug.Log("TestBehaviour - Start");
+            DebugLogMe('Start');
         }
         public void Update() {
             /* Testing */
-            Debug.Log("TestBehaviour - Update");
+            DebugLogMe('Update');
+        }
+        public void DebugLogMe(string text)
+        {
+            Debug.Log("TestBehaviour - " + text);
         }
     }
 }

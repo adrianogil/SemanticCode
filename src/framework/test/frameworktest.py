@@ -2,7 +2,7 @@ import os
 
 class FrameworkTest:
 
-    def __init__(self, parser, file_name = 'testparse.cs'):
+    def __init__(self, parser, file_name = '../../test/testparse.cs'):
         self.parser = parser
         self.test_file = file_name
 

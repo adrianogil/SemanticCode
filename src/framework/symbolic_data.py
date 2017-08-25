@@ -35,7 +35,7 @@ class SymbolicData:
 
         self.data['entities'][entity.id] = entity.to_dict()
 
-        print('add_entity ' + str(self.data))
+        print('add_entity ' + str(entity.to_dict()))
 
     def get_entity(self, id):
         return self.data['entities'][id]
