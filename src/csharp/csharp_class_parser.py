@@ -1,14 +1,22 @@
+class TokenCategory:
+    '''
+        Tokens categories:
+        0 - code
+        1 - string
+        2 - commentary
+    '''
+    Code = 0
+    String = 1
+    Comment = 2
 
-def  parse_tokens(tokens_data):
+def  parse_tokens(parser):
+    tokens_data = parser.tokens_data
     tokens = tokens_data['tokens']
     tokens_category = tokens_data['tokens_category']
-    print('charp_class_parser - ' + str(len(tokens)) + " tokens")
-    print(str(tokens))
+    # print(str(tokens))
 
-
-def wip_method():
-    semantic_tokens = tokens_data['semantic_tokens']
-    positions = tokens_data['token_position']
+    tokens_category = tokens_data['tokens_category']
+    positions = tokens_data['enclosure_tokens']
 
     print('charp_class_parser - ' + str(len(tokens)) + " tokens")
 
@@ -28,25 +36,25 @@ def wip_method():
 
     for t in range(1, total_tokens):
         # Can't consider importers inside strings
-        if isinstance(semantic_tokens[t], CSharpElement):
+        if tokens_category[t] != TokenCategory.Code:
             continue
 
         if class_identified and tokens[t] == '{':
             class_identified = False
             classinfo_expected = False
 
-            class_end_position = tokens_data['enclosure_position'][t]
+            class_end_position = tokens_data['enclosure_tokens'][t]
 
             print('Class identified: ' + class_name + " with baseclass/interfaces: " + str(classinfo_tokens))
-            class_instance = CSharpClass(class_name, tokens[t:class_end_position], class_end_position)
+            # class_instance = CSharpClass(class_name, tokens[t:class_end_position], class_end_position)
 
-            tokens_data = csharp_class_body_parser.parse_tokens(tokens_data, (t+1, tokens_data['enclosure_position'][t]), class_name, class_instance)
+            # tokens_data = csharp_class_body_parser.parse_tokens(tokens_data, (t+1, tokens_data['enclosure_tokens'][t]), class_name, class_instance)
             class_instance.line_in_file = positions[start_class_pos][0]
             class_instance.methods_data = tokens_data['method_data']
             class_instance.base_info = classinfo_tokens
             classes_data.append(class_instance)
-            for i in range(start_class_pos, t):
-                semantic_tokens[i] = class_instance
+            # for i in range(start_class_pos, t):
+            #     semantic_tokens[i] = class_instance
             class_name = ''
             classinfo_tokens = []
 
