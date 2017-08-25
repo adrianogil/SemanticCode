@@ -11,12 +11,11 @@ class TokenCategory:
     Comment = 2
 
 class CSharpImporter():
-
     def __init__(self, csharp_namespace):
         self.imported_namespace = csharp_namespace
 
     def add_entity(self, parser):
-        entity = parser.symbols.create_symbolic_entity()
+        entity = parser.symbols.create_symbolic_entity(parser.get_file_path())
         entity.add_value('csharp_type', 'importer')
         entity.add_value('namespace', self.imported_namespace)
         parser.symbols.add_entity(entity)
@@ -49,7 +48,7 @@ def parse_tokens(parser):
     # print(diff)
 
     for t in range(0, total_tokens):
-        print('Current token: ' + tokens[t])
+        # print('Current token: ' + tokens[t])
         # Can't consider importers inside strings
         if tokens_category[t] != TokenCategory.Code:
             continue
@@ -73,7 +72,7 @@ def parse_tokens(parser):
             importer_tokens = []
         elif inside_using:
             current_imported_namespace = current_imported_namespace + tokens[t]
-            print('importer - current_imported_namespace: ' + current_imported_namespace)
+            # print('importer - current_imported_namespace: ' + current_imported_namespace)
             importer_tokens.append(tokens[t])
 
     return tokens_data

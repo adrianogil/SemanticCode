@@ -22,12 +22,15 @@ class SymbolicData:
         self.data = {'entities' : {} }
         self.total_entities = 0
 
-    def create_symbolic_entity(self):
-        return SymbolicEntity()
+    def create_symbolic_entity(self, file_path):
+        entity = SymbolicEntity()
+        entity.add_value('source_file', file_path)
+
+        return entity
 
     def add_entity(self, entity):
         if entity.id == -1:
-            entity.id = self.total_entities
+            entity.set_id(self.total_entities)
             self.total_entities = self.total_entities + 1
 
         self.data['entities'][entity.id] = entity.to_dict()
