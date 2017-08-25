@@ -1,3 +1,5 @@
+import csharp_class_method_parser
+
 class TokenCategory:
     '''
         Tokens categories:
@@ -16,12 +18,21 @@ class CSharpClass():
         self.line_in_file = line_in_file
 
     def add_entity(self, parser):
+        self.parser = parser
         entity = parser.symbols.create_symbolic_entity(parser.get_file_path())
         entity.add_value('csharp_type', 'class')
         entity.add_value('class_name', self.class_name)
         entity.add_value('base_info', self.base_info)
         entity.add_value('line_in_file', self.line_in_file)
         parser.symbols.add_entity(entity)
+        self.class_entity = entity
+
+    def parse_class_body(self, class_region):
+        class_entity_id = self.class_entity.id
+
+        csharp_class_method_parser.parse_tokens(self.parser, class_region, self.class_name, class_entity_id)
+        # csharp_class_member_parser.parse_tokens(self.parser, class_region, class_name, class_instance)
+        # csharp_class_property_parser.parse_tokens(self.parser, class_region, class_name, class_instance)
 
 def  parse_tokens(parser):
     tokens_data = parser.tokens_data
@@ -62,8 +73,7 @@ def  parse_tokens(parser):
             print('Class identified: ' + class_name + " with baseclass/interfaces: " + str(classinfo_tokens))
             class_instance = CSharpClass(class_name, classinfo_tokens, positions[start_class_pos])
             class_instance.add_entity(parser)
-
-            # tokens_data = csharp_class_body_parser.parse_tokens(tokens_data, (t+1, tokens_data['enclosure_tokens'][t]), class_name, class_instance)
+            class_instance.parse_class_body((t+1, tokens_data['enclosure_tokens'][t]))
             # class_instance.line_in_file = positions[start_class_pos][0]
             # class_instance.methods_data = tokens_data['method_data']
             # class_instance.base_info = classinfo_tokens
