@@ -1,4 +1,5 @@
 import csharp_class_method_parser
+import csharp_class_field_parser
 
 class TokenCategory:
     '''
@@ -31,7 +32,7 @@ class CSharpClass():
         class_entity_id = self.class_entity.id
 
         csharp_class_method_parser.parse_tokens(self.parser, class_region, self.class_name, class_entity_id)
-        # csharp_class_member_parser.parse_tokens(self.parser, class_region, class_name, class_instance)
+        csharp_class_field_parser.parse_tokens(self.parser, class_region, self.class_name, class_entity_id)
         # csharp_class_property_parser.parse_tokens(self.parser, class_region, class_name, class_instance)
 
 def  parse_tokens(parser):
