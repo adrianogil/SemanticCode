@@ -118,12 +118,14 @@ class TokenParser(object):
                         token_location = (token_start, token_end)
                         self.add_token_data(current_token, token_location, TokenCategory.Code)
                         current_token = ''
+                        token_start = (-1,-1)
                 elif not inside_string and p.is_special_token(content[i][j]):
                     if current_token != '':
                         self.add_token_data(current_token, (token_start,(i,j-1)), TokenCategory.Code)
                         token_start = (i,j)
                         current_token = ''
                     self.add_token_data("" + content[i][j], ((i,j),(i,j)), TokenCategory.Code)
+                    token_start = (-1,-1)
                 else:
                     if token_start[0] == 1 or token_start[1] == -1:
                         token_start = (i,j)
@@ -136,7 +138,7 @@ class TokenParser(object):
         self.enclosure_tokens = []
 
     def add_token_data(self, token, token_location, token_category):
-        # print('add_token_data ' + token)
+        print('add_token_data ' + token + ' with location ' + str(token_location))
 
         self.tokens.append(token)
         self.tokens_category.append(token_category)

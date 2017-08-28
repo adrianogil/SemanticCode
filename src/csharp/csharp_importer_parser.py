@@ -11,14 +11,23 @@ class TokenCategory:
     Comment = 2
 
 class CSharpImporter():
-    def __init__(self, csharp_namespace):
+    def __init__(self, csharp_namespace, position_in_tokens):
         self.imported_namespace = csharp_namespace
+        self.position_in_tokens = position_in_tokens
 
     def add_entity(self, parser):
         entity = parser.symbols.create_symbolic_entity(parser.get_file_path())
         entity.add_value('csharp_type', 'importer')
         entity.add_value('namespace', self.imported_namespace)
+
+        positions = parser.tokens_data['tokens_position']
+        start_pos = positions[self.position_in_tokens[0]][0]
+        end_pos = positions[self.position_in_tokens[1]][1]
+        print('csharp_importer_parser.CSharpImporter.add_entity - start_pos ' + str(start_pos) + ' end_pos ' + str(end_pos))
+        entity.set_position(start_pos, end_pos)
+
         parser.symbols.add_entity(entity)
+
 
 def parse_tokens(parser):
     tokens_data = parser.tokens_data
@@ -61,7 +70,8 @@ def parse_tokens(parser):
 
             importer_tokens.append(tokens[t])
             # print(current_imported_namespace)
-            importer_instance = CSharpImporter(current_imported_namespace)
+            token_pos = (start_using_token_pos, t)
+            importer_instance = CSharpImporter(current_imported_namespace, token_pos)
             importer_instance.add_entity(parser)
 
             # for s in range(start_using_token_pos, t+1):
