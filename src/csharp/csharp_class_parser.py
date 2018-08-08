@@ -1,6 +1,8 @@
 import csharp_class_method_parser
 import csharp_class_field_parser
 
+import csharp_debug_tools
+
 class TokenCategory:
     '''
         Tokens categories:
@@ -44,7 +46,7 @@ def  parse_tokens(parser):
     tokens_category = tokens_data['tokens_category']
     positions = tokens_data['enclosure_tokens']
 
-    print('charp_class_parser - ' + str(len(tokens)) + " tokens")
+    csharp_debug_tools.dprint('charp_class_parser - ' + str(len(tokens)) + " tokens")
 
     total_tokens = len(tokens)
 
@@ -71,13 +73,15 @@ def  parse_tokens(parser):
 
             class_end_position = tokens_data['enclosure_tokens'][t]
 
-            print('Class identified: ' + class_name + " with baseclass/interfaces: " + str(classinfo_tokens))
+            csharp_debug_tools.dprint('Class identified: ' + class_name + " with baseclass/interfaces: " + str(classinfo_tokens))
             class_instance = CSharpClass(class_name, classinfo_tokens, positions[start_class_pos])
             class_instance.add_entity(parser)
             class_instance.parse_class_body((t+1, tokens_data['enclosure_tokens'][t]))
             # class_instance.line_in_file = positions[start_class_pos][0]
             # class_instance.methods_data = tokens_data['method_data']
             # class_instance.base_info = classinfo_tokens
+
+            classes_data.append(class_instance)
 
             # for i in range(start_class_pos, t):
             #     semantic_tokens[i] = class_instance

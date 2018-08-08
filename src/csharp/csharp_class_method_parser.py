@@ -2,6 +2,8 @@ import csharp_class_method_param_parser
 # import csharp_class_method_scope_parser
 # from csharp_class_method_scope_parser import CSharpMethodScope
 
+import csharp_debug_tools
+
 import csharp_utils
 
 class CSharpClassMethod:
@@ -50,7 +52,7 @@ class CSharpClassMethod:
 
 # class_region = (token_start, token_end) of enclosure class
 def parse_tokens(parser, class_region, class_name, class_entity_id):
-    print('csharp_class_method_parser region: ' + str(class_region) + ' and entity id ' + str(class_entity_id))
+    csharp_debug_tools.dprint('csharp_class_method_parser region: ' + str(class_region) + ' and entity id ' + str(class_entity_id))
 
     tokens_data = parser.tokens_data
     tokens = tokens_data['tokens']
@@ -153,10 +155,10 @@ def parse_tokens(parser, class_region, class_name, class_entity_id):
             else:
                 method_name = 'constructor' #tokens[t-5]
 
-            if is_static_method:
-                print('Found static method ' + method_name + " with return type '" + return_type + "' and access level " + method_access_level)
-            else:
-                print('Found method ' + method_name + " with return type '" + return_type + "' and access level " + method_access_level)
+            # if is_static_method:
+            #     print('Found static method ' + method_name + " with return type '" + return_type + "' and access level " + method_access_level)
+            # else:
+            #     print('Found method ' + method_name + " with return type '" + return_type + "' and access level " + method_access_level)
 
             method_id = create_method_instance(t)
             csharp_class_method_param_parser.parse_tokens(parser, (t+1, enclosure_position[t]), method_id)

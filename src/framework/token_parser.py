@@ -138,7 +138,7 @@ class TokenParser(object):
         self.enclosure_tokens = []
 
     def add_token_data(self, token, token_location, token_category):
-        print('add_token_data ' + token + ' with location ' + str(token_location))
+        # print('add_token_data ' + token + ' with location ' + str(token_location))
 
         self.tokens.append(token)
         self.tokens_category.append(token_category)

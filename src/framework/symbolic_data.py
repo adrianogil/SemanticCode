@@ -74,8 +74,8 @@ class SymbolicData:
         line_start = entity.position_in_file[0][0]
         line_end = entity.position_in_file[1][0]
 
-        print('add_entity - entity_position:  ' + str(entity.position_in_file))
-        print('add_entity - line_start ' + str(line_start) + ' line_end ' + str(line_end))
+        # print('add_entity - entity_position:  ' + str(entity.position_in_file))
+        # print('add_entity - line_start ' + str(line_start) + ' line_end ' + str(line_end))
 
         if line_start  != -1 and line_end != -1:
             for l in xrange(line_start, line_end+1):
@@ -88,7 +88,7 @@ class SymbolicData:
 
         self.data['entities'][entity.id] = entity.to_dict()
 
-        print('add_entity ' + str(entity.to_dict()))
+        # print('add_entity ' + str(entity.to_dict()))
 
     def get_entity(self, id):
         return self.data['entities'][id]

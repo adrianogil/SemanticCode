@@ -1,3 +1,4 @@
+import csharp_debug_tools
 
 class CSharpClassParamMethod:
 
@@ -54,7 +55,7 @@ def parse_tokens(parser, class_region, method_id):
 
         if tokens[t] == ',':
             # New parameter
-            print('\t - parameter ' + parameter_name + " with type " + parameter_type)
+            csharp_debug_tools.dprint('\t - parameter ' + parameter_name + " with type " + parameter_type)
             create_method_instance(t)
             parameter_type = ''
             parameter_name = ''
@@ -79,6 +80,6 @@ def parse_tokens(parser, class_region, method_id):
         t = t + 1
 
     if number_of_parameters > 0:
-        print('\t - parameter ' + parameter_name + " with type " + parameter_type)
+        csharp_debug_tools.dprint('\t - parameter ' + parameter_name + " with type " + parameter_type)
         create_method_instance(t)
 

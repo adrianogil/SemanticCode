@@ -1,5 +1,7 @@
 import csharp_utils
 
+import csharp_debug_tools
+
 class TokenCategory:
     '''
         Tokens categories:
@@ -74,8 +76,8 @@ def parse_tokens(parser, class_region, class_name, class_entity_id):
     while t < end_region:
 
         if expected_default_value and tokens[t] == ';':
-            print('\t +Member ' + member_name + " with type " + member_type + \
-                " with default value " + member_default_value)
+            # print('\t +Member ' + member_name + " with type " + member_type + \
+            #     " with default value " + member_default_value)
 
             create_field_instance(t)
 
@@ -152,7 +154,7 @@ def parse_tokens(parser, class_region, class_name, class_entity_id):
             else:
                 expected_default_value = False
                 create_field_instance(t+3)
-                print('\t +Member ' + member_name + " with type " + member_type)
+                # print('\t +Member ' + member_name + " with type " + member_type)
             t = t + 4
         elif (t+2) < end_region and \
              tokens_category[t] == TokenCategory.Code and \
@@ -170,12 +172,12 @@ def parse_tokens(parser, class_region, class_name, class_entity_id):
             else:
                 expected_default_value = False
                 create_field_instance(t+2)
-                print('\t +Member ' + member_name + " with type " + member_type)
+                csharp_debug_tools.dprint('\t +Member ' + member_name + " with type " + member_type)
             t = t + 3
         else:
             t = t + 1
 
     if number_of_members > 0:
-        print('\t +Member ' + member_name + " with type " + member_type)
+        csharp_debug_tools.dprint('\t +Member ' + member_name + " with type " + member_type)
 
 

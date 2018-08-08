@@ -23,7 +23,7 @@ class CSharpImporter():
         positions = parser.tokens_data['tokens_position']
         start_pos = positions[self.position_in_tokens[0]][0]
         end_pos = positions[self.position_in_tokens[1]][1]
-        print('csharp_importer_parser.CSharpImporter.add_entity - start_pos ' + str(start_pos) + ' end_pos ' + str(end_pos))
+        # print('csharp_importer_parser.CSharpImporter.add_entity - start_pos ' + str(start_pos) + ' end_pos ' + str(end_pos))
         entity.set_position(start_pos, end_pos)
 
         parser.symbols.add_entity(entity)
@@ -31,7 +31,7 @@ class CSharpImporter():
 
 def parse_tokens(parser):
     tokens_data = parser.tokens_data
-    print(str(parser.symbols))
+    # print(str(parser.symbols))
 
     tokens = tokens_data['tokens']
     tokens_category = tokens_data['tokens_category']

@@ -22,6 +22,8 @@ class BasicCSharpParser(token_parser.TokenParser):
 
     def parse_content(self, content):
         self.tokens_data = super(BasicCSharpParser, self).parse_content(content)
-        csharp_importer_parser.parse_tokens(self)
-        csharp_class_parser.parse_tokens(self)
+        self.tokens_data = csharp_importer_parser.parse_tokens(self)
+        self.tokens_data = csharp_class_parser.parse_tokens(self)
+
+        return self.tokens_data
 
