@@ -15,7 +15,14 @@ def parse_file(file_name):
     classes = tokenized_data['classes']
 
     for c in classes:
-        print(c.class_name)
+        if len(sys.argv) > 2:
+            is_suitable_class = False
+            for b in c.base_info:
+                is_suitable_class = is_suitable_class or sys.argv[2] in b
+            if is_suitable_class:
+                print(c.class_name + ' that inherits from ' + str(c.base_info))
+        else:
+            print(c.class_name)
 
 def parse_project(project_path, file_extension):
     for root, subFolders, files in os.walk(project_path):
@@ -28,34 +35,3 @@ elif os.path.isfile(input_path):
     parse_file(input_path) 
 else:  
     print("Wrong input" )
-
-# class FrameworkTest:
-#     def __init__(self, parser, file_name = '../../test/testparse.cs'):
-#         self.parser = parser
-#         self.file_name = file_name
-
-#         dir_path = os.path.dirname(os.path.realpath(__file__))
-#         self.test_file = os.path.join(dir_path, self.test_file)
-
-#     def TestAll(self):
-#         self.TestTokenParse()
-
-#     def TestTokenParse(self):
-#         print('--- Start Testing - Token Parse ---')
-
-        
-
-#         print('--- Start End ----- Token Parse ---')
-
-#         return tokenized_data
-
-
-
-# def testAllModules():
-#     print("----- Testing Start -----")
-#     test_framework.test()
-#     test_csharp.test()
-#     print("----- Testing End -------")
-
-
-# testAllModules()
