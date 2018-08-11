@@ -53,7 +53,7 @@ class TransformYamlParser:
     def on_yaml_section_start(self, line, line_number):
         if self.is_rect_transform:
             self.current_transform_id = line[12:-1]
-            print('TransformYamlParser::on_yaml_section_start - current_transform_id ' + self.current_transform_id)
+            # print('TransformYamlParser::on_yaml_section_start - current_transform_id ' + self.current_transform_id)
         else:
             self.current_transform_id = line[10:-1]
         self.current_transform_line = line_number
